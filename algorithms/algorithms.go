@@ -49,7 +49,7 @@ func DoProcessAlgorithm (dataset []trafficdata.PimaDiabetesRecord, algorithm int
 		return dataset, errors.New ("Invalid algorithm specified")
 	}
 
-	data := make([]diabetesdata.PimaDiabetesRecord, len(dataset))
+	data := make([]trafficdata.PimaDiabetesRecord, len(dataset))
 	var err error = nil
 
 	switch (algorithm) {
@@ -69,14 +69,11 @@ func DoProcessAlgorithm (dataset []trafficdata.PimaDiabetesRecord, algorithm int
 func anonymiseDiabetesRecord (data trafficdata.PimaDiabetesRecord ) []float64 {
 	anonymous := make([]float64, support.SizeOfPimaDiabetesRecord()-1)
 
-	anonymous[0] = float64(data.NumberOfTimesPregnant)
-	anonymous[1] = float64(data.PlasmaGlucoseConcentration)
-	anonymous[2] = float64(data.DiastolicBloodPressure)
-	anonymous[3] = float64(data.TricepsSkinfoldThickness)
-	anonymous[4] = float64(data.SeriumInsulin)
-	anonymous[5] = float64(data.BodyMassIndex)
-	anonymous[6] = float64(data.DiabetesPedigreeFunction)
-	anonymous[7] = float64(data.Age)
+	anonymous[0] = float64(data.NorthVolume)
+	anonymous[1] = float64(data.NorthAverageSpeed)
+	anonymous[2] = float64(data.SouthVolume)
+	anonymous[3] = float64(data.SouthAverageSpeed)
+	
 
 	return anonymous
 }
@@ -238,7 +235,7 @@ func DoShowAlgorithmTestSummary (sessionhandle *os.File, testdata []trafficdata.
 		// have we sufficient positive nearest neighbours to reach the threshold
 		count:= 0
 		for neighbourIndex := 0; neighbourIndex < numberOfNearestNeighbours; neighbourIndex++ {
-			count += datasets.PimaTrainingData[closestRecordsIndices[neighbourIndex]].TestedPositive
+			count += datasets.PimaTrainingData[closestRecordsIndices[neighbourIndex]].Outcome
 		}
 
 		if expectedOutcomeValue == 0 { // healthy
@@ -249,23 +246,23 @@ func DoShowAlgorithmTestSummary (sessionhandle *os.File, testdata []trafficdata.
 		
 
 		//TP
-		if expectedOutcomeValue == 1 && testdata[testIndex].TestedPositive == 1  {
+		if expectedOutcomeValue == 1 && testdata[testIndex].Outcome == 1  {
 			truePositiveCount++
 		}
 
 		//TN
-		if expectedOutcomeValue == 0 &&  testdata[testIndex].TestedPositive == 0 {
+		if expectedOutcomeValue == 0 &&  testdata[testIndex].Outcome == 0 {
 			trueNegativeCount++
 		}
 
 		//FP
-		if expectedOutcomeValue == 1 && testdata[testIndex].TestedPositive == 0 {
+		if expectedOutcomeValue == 1 && testdata[testIndex].Outcome == 0 {
 			changeStatus = "FP" // false positive
 			falsePositiveCount++
 		}
 
 		//FN
-		if expectedOutcomeValue == 0 && testdata[testIndex].TestedPositive == 1 {
+		if expectedOutcomeValue == 0 && testdata[testIndex].Outcome == 1 {
 			changeStatus = "FN" // false negative
 			falseNegativeCount++
 		}
@@ -284,9 +281,9 @@ func DoShowAlgorithmTestSummary (sessionhandle *os.File, testdata []trafficdata.
 			}
 			str += support.CentreStringInColumn (fmt.Sprintf ("%-15s",strconv.Itoa (closestRecordsIndices[recIndex])), 15)
 			str += support.CentreStringInColumn (fmt.Sprintf ("%.8f", SimilarityTable[recIndex].CosineSimilarity), 12)
-			str += support.CentreStringInColumn (fmt.Sprintf ("%s",strconv.Itoa(testdata[testIndex].TestedPositive)),12)
+			str += support.CentreStringInColumn (fmt.Sprintf ("%s",strconv.Itoa(testdata[testIndex].Outcome)),12)
 			
-			str += support.CentreStringInColumn (fmt.Sprintf ("%s", strconv.Itoa(datasets.PimaTrainingData[closestRecordsIndices[recIndex]].TestedPositive)),12)
+			str += support.CentreStringInColumn (fmt.Sprintf ("%s", strconv.Itoa(datasets.PimaTrainingData[closestRecordsIndices[recIndex]].Outcome)),12)
 			str += changeStatus // FN or FP here or just blank
 			str += "\n"
 			sessionhandle.WriteString (str) // this will be in session file really

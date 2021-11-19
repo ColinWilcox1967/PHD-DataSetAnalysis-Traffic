@@ -16,8 +16,8 @@ func replaceNearestNeighbours (dataset []trafficdata.PimaDiabetesRecord) ([]traf
 
 	numberOfRecords := len(dataset)
 	
-	var resultSet = make([]diabetesdata.PimaDiabetesRecord, numberOfRecords)
-	var completeRecords = make([]diabetesdata.PimaDiabetesRecord, numberOfRecords)
+	var resultSet = make([]trafficdata.PimaDiabetesRecord, numberOfRecords)
+	var completeRecords = make([]trafficdata.PimaDiabetesRecord, numberOfRecords)
 
 	// remove all incomplete records
 	for index := 0; index < numberOfRecords; index++ {

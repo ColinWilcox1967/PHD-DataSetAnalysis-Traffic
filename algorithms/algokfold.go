@@ -90,7 +90,7 @@ func calculateKFoldMetrics (dataset []trafficdata.PimaDiabetesRecord, foldIndex 
 	count:= 0
 
 	for neighbourIndex := 0; neighbourIndex < numberOfNearestNeighbours; neighbourIndex++ {
-		count += dataset[closestRecordsIndices[neighbourIndex]].TestedPositive
+		count += dataset[closestRecordsIndices[neighbourIndex]].Outcome
 	}
 
 	// some munging!!!!
@@ -100,7 +100,7 @@ func calculateKFoldMetrics (dataset []trafficdata.PimaDiabetesRecord, foldIndex 
 		}
 	}
 
-	actualOutcome := dataset[closestRecordsIndices[0]].TestedPositive //??
+	actualOutcome := dataset[closestRecordsIndices[0]].Outcome //??
 
 	//TP
 	if expectedOutcomeValue == 1 && actualOutcome == 1  {
@@ -135,7 +135,7 @@ func DoKFoldSplit (dataset []trafficdata.PimaDiabetesRecord, numberOfFolds int) 
 
 	splitDataset, err := splitDataSetIntoEvenFolds (dataset, numberOfFolds)
 	if err != nil {
-		return []diabetesdata.PimaDiabetesRecord{}, err
+		return []trafficdata.PimaDiabetesRecord{}, err
 	}
 
 

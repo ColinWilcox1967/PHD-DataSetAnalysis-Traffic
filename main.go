@@ -31,7 +31,7 @@ const (
 )
 
 var (
- 	pimaDiabetesData []diabetesdata.PimaDiabetesRecord	// Original Data store
+ 	pimaDiabetesData []trafficdata.PimaDiabetesRecord	// Original Data store
 	splitPercentage float64 = default_split_percentage  // 0.0 < percentage < 1.0
 	sourceDataMetrics, TrainingDataSetMetrics, TestDataSetMetrics metrics.DataSetMetrics
 	logfileName string
@@ -109,19 +109,14 @@ func loadDiabetesFile (filename string) (error, int) {
 		}
 
 		// Append the record
-		var newRecord diabetesdata.PimaDiabetesRecord
+		var newRecord trafficdata.PimaDiabetesRecord
 
-		newRecord.NumberOfTimesPregnant,_ = strconv.ParseFloat(record[0], 64)
-		newRecord.PlasmaGlucoseConcentration,_ = strconv.ParseFloat(record[1],64)
-		newRecord.DiastolicBloodPressure,_ = strconv.ParseFloat(record[2],64)
-		newRecord.TricepsSkinfoldThickness,_ = strconv.ParseFloat(record[3],64)
-		newRecord.SeriumInsulin,_ = strconv.ParseFloat(record[4],64)
-
-		newRecord.BodyMassIndex,_ = strconv.ParseFloat(record[5], 64) // 64 bit float
-		newRecord.DiabetesPedigreeFunction,_ = strconv.ParseFloat(record[6], 64) // 64 bit float
-
-		newRecord.Age,_ = strconv.ParseFloat(record[7],64)
-		newRecord.TestedPositive,_ = strconv.Atoi(record[8])
+		newRecord.NorthVolume,_ = strconv.ParseFloat(record[0], 64)
+		newRecord.NorthAverageSpeed,_ = strconv.ParseFloat(record[1],64)
+		newRecord.SouthVolume,_ = strconv.ParseFloat(record[2],64)
+		newRecord.SouthAverageSpeed,_ = strconv.ParseFloat(record[3],64)
+		
+		newRecord.Outcome,_ = strconv.Atoi(record[4])
 
 		pimaDiabetesData = append(pimaDiabetesData, newRecord)
 
@@ -140,7 +135,7 @@ func partitionData (sizeOfDataSet int, testDataSplit float64) (error, int, int) 
 	var testRecordCount int = sizeOfDataSet - int(trainingRecordCount)
 
 	// Duplicate raw data records into potential training data set
-	datasets.PimaTrainingData = make([]diabetesdata.PimaDiabetesRecord, len(pimaDiabetesData))
+	datasets.PimaTrainingData = make([]trafficdata.PimaDiabetesRecord, len(pimaDiabetesData))
 	
 	copy(datasets.PimaTrainingData, pimaDiabetesData)
 
@@ -161,16 +156,13 @@ func partitionData (sizeOfDataSet int, testDataSplit float64) (error, int, int) 
 		recordIndexList = append(recordIndexList, r) // add index to list for later
 		
 		//copyPimaRecordToTestData
-		var newRecord diabetesdata.PimaDiabetesRecord
+		var newRecord trafficdata.PimaDiabetesRecord
 
-		newRecord.Age = pimaDiabetesData[r].Age
-		newRecord.BodyMassIndex = pimaDiabetesData[r].BodyMassIndex
-		newRecord.DiabetesPedigreeFunction = pimaDiabetesData[r].DiabetesPedigreeFunction
-		newRecord.DiastolicBloodPressure = pimaDiabetesData[r].DiastolicBloodPressure
-		newRecord.PlasmaGlucoseConcentration = pimaDiabetesData[r].PlasmaGlucoseConcentration
-		newRecord.SeriumInsulin = pimaDiabetesData[r].SeriumInsulin
-		newRecord.TestedPositive = pimaDiabetesData[r].TestedPositive
-		newRecord.TricepsSkinfoldThickness = pimaDiabetesData[r].TricepsSkinfoldThickness
+		newRecord.NorthVolume = pimaDiabetesData[r].NorthVolume
+		newRecord.NorthAverageSpeed = pimaDiabetesData[r].NorthAverageSpeed
+		newRecord.SouthVolume = pimaDiabetesData[r].SouthVolume
+		newRecord.SouthAverageSpeed = pimaDiabetesData[r].SouthAverageSpeed
+		
 
 		datasets.PimaTestData = append(datasets.PimaTestData, newRecord)
 	}
@@ -196,7 +188,7 @@ func countTrainingSetRecords () (int, int) {
 	var positiveCount, negativeCount int
 
 	for index := 0; index < len (datasets.PimaTrainingData); index++ {
-		if datasets.PimaTrainingData[index].TestedPositive == 1 {
+		if datasets.PimaTrainingData[index].Outcome == 1 {
 			positiveCount++
 		} else {
 			negativeCount++

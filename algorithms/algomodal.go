@@ -30,7 +30,7 @@ func replaceMissingValuesWithModal (dataset []trafficdata.PimaDiabetesRecord) ([
 	numberOfFields := support.SizeOfPimaDiabetesRecord () - 1
 	numberOfRecords := len(dataset)
 
-	var resultSet = make([]diabetesdata.PimaDiabetesRecord, numberOfRecords)
+	var resultSet = make([]trafficdata.PimaDiabetesRecord, numberOfRecords)
 
 	columnCount := make([][]valueCount, numberOfFields)
 	columnModal := make([]valueCount, numberOfFields)
@@ -46,14 +46,11 @@ func replaceMissingValuesWithModal (dataset []trafficdata.PimaDiabetesRecord) ([
 		for field := 0; field < numberOfFields; field++ {
 
 			switch field {
-				case 0: value = r.NumberOfTimesPregnant
-				case 1: value = r.DiastolicBloodPressure
-				case 2: value = r.PlasmaGlucoseConcentration
-				case 3: value = r.TricepsSkinfoldThickness
-				case 4: value = r.SeriumInsulin
-				case 5: value = r.BodyMassIndex
-				case 6: value = r.DiabetesPedigreeFunction
-				case 7: value = r.Age
+				case 0: value = r.NorthVolume
+				case 1: value = r.NorthAverageSpeed
+				case 2: value = r.SouthVolume
+				case 3: value = r.SouthAverageSpeed
+				
 			}
 
 			exists, pos = valueExistsForFeature (columnCount[field], value)
@@ -92,56 +89,33 @@ func replaceMissingValuesWithModal (dataset []trafficdata.PimaDiabetesRecord) ([
 	// now we have the modal for each columm run through and process the data set
 	
 	for index:= 0; index < numberOfRecords; index++ {
-		if dataset[index].NumberOfTimesPregnant == 0 {
-			resultSet[index].NumberOfTimesPregnant = support.RoundFloat64 (columnModal[0].Value,2)
+		if dataset[index].NorthVolume == 0 {
+			resultSet[index].NorthVolume = support.RoundFloat64 (columnModal[0].Value,2)
 		} else {
-			resultSet[index].NumberOfTimesPregnant = support.RoundFloat64 (dataset[index].NumberOfTimesPregnant, 2)
+			resultSet[index].NorthVolume = support.RoundFloat64 (dataset[index].NorthVolume, 2)
 		}
 	
-		if dataset[index].PlasmaGlucoseConcentration == 0 {
-			resultSet[index].PlasmaGlucoseConcentration = support.RoundFloat64 (columnModal[1].Value, 2)
+		if dataset[index].NorthAverageSpeed == 0 {
+			resultSet[index].NorthAverageSpeed = support.RoundFloat64 (columnModal[1].Value, 2)
 		} else {
-			resultSet[index].PlasmaGlucoseConcentration = support.RoundFloat64(dataset[index].PlasmaGlucoseConcentration, 2)
+			resultSet[index].NorthAverageSpeed = support.RoundFloat64(dataset[index].NorthAverageSpeed, 2)
 		}
 	
-		if dataset[index].DiastolicBloodPressure == 0 {
-			resultSet[index].DiastolicBloodPressure = support.RoundFloat64(columnModal[2].Value, 2)
+		if dataset[index].SouthVolume == 0 {
+			resultSet[index].SouthVolume = support.RoundFloat64(columnModal[2].Value, 2)
 		} else {
-			resultSet[index].DiastolicBloodPressure = support.RoundFloat64(dataset[index].DiastolicBloodPressure, 2)
+			resultSet[index].SouthVolume = support.RoundFloat64(dataset[index].SouthVolume, 2)
 		}
 
-		if dataset[index].TricepsSkinfoldThickness == 0 {
-			resultSet[index].TricepsSkinfoldThickness = support.RoundFloat64(columnModal[3].Value, 2)
+		if dataset[index].SouthAverageSpeed == 0 {
+			resultSet[index].SouthAverageSpeed = support.RoundFloat64(columnModal[3].Value, 2)
 		} else {
-			resultSet[index].TricepsSkinfoldThickness = support.RoundFloat64(dataset[index].TricepsSkinfoldThickness, 2)
+			resultSet[index].SouthAverageSpeed = support.RoundFloat64(dataset[index].SouthAverageSpeed, 2)
 		}
 
-		if dataset[index].SeriumInsulin == 0 {
-			resultSet[index].SeriumInsulin = support.RoundFloat64(columnModal[4].Value, 2)
-		} else {
-			resultSet[index].SeriumInsulin = support.RoundFloat64(dataset[index].SeriumInsulin, 2)
-		}
-
-		if dataset[index].BodyMassIndex == 0 {
-			resultSet[index].BodyMassIndex = support.RoundFloat64(columnModal[5].Value, 2)
-		} else {
-			resultSet[index].BodyMassIndex = support.RoundFloat64(dataset[index].BodyMassIndex, 2)
-		}
-
-		if dataset[index].DiabetesPedigreeFunction == 0 {
-			resultSet[index].DiabetesPedigreeFunction = support.RoundFloat64(columnModal[6].Value,2)
-		} else {
-			resultSet[index].DiabetesPedigreeFunction = support.RoundFloat64(dataset[index].DiabetesPedigreeFunction,2)
-		}
-	
-		if dataset[index].Age == 0 {
-			resultSet[index].Age = columnModal[7].Value
-		} else {
-			resultSet[index].Age = dataset[index].Age
-		}
-
+		
 		// TestedPositive field may actually be zero
-		resultSet[index].TestedPositive = dataset[index].TestedPositive
+		resultSet[index].Outcome = dataset[index].Outcome
 	}
 
 	return resultSet,nil

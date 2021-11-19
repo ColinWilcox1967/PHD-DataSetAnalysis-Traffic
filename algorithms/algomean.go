@@ -13,7 +13,7 @@ func replaceMissingValuesWithMean (dataset []trafficdata.PimaDiabetesRecord) ([]
 	numberOfFields := support.SizeOfPimaDiabetesRecord () - 1
 	numberOfRecords := len(dataset)
 
-	var resultSet = make([]diabetesdata.PimaDiabetesRecord, numberOfRecords)
+	var resultSet = make([]trafficdata.PimaDiabetesRecord, numberOfRecords)
 
 	// loop through and replace all missing elements with mean for the column
 
@@ -22,14 +22,11 @@ func replaceMissingValuesWithMean (dataset []trafficdata.PimaDiabetesRecord) ([]
 	var columnMean = make([]float64, numberOfFields)
 
 	for index := 0; index < numberOfRecords; index++ {
-		columnTotal[0] += float64(dataset[index].NumberOfTimesPregnant)
-		columnTotal[1] += float64(dataset[index].PlasmaGlucoseConcentration)
-		columnTotal[2] += float64(dataset[index].DiastolicBloodPressure)
-		columnTotal[3] += float64(dataset[index].TricepsSkinfoldThickness)
-		columnTotal[4] += float64(dataset[index].SeriumInsulin)
-		columnTotal[5] += dataset[index].BodyMassIndex
-		columnTotal[6] += dataset[index].DiabetesPedigreeFunction
-		columnTotal[7] += float64(dataset[index].Age)
+		columnTotal[0] += float64(dataset[index].NorthVolume)
+		columnTotal[1] += float64(dataset[index].NorthAverageSpeed)
+		columnTotal[2] += float64(dataset[index].SouthVolume)
+		columnTotal[3] += float64(dataset[index].SouthAverageSpeed)
+	
 	}
 
 	// work out means
@@ -47,56 +44,34 @@ func replaceMissingValuesWithMean (dataset []trafficdata.PimaDiabetesRecord) ([]
 	// now sycle through the record and replace missing data with the mean for that column
 	for index := 0; index < numberOfRecords; index++ {
 
-		if dataset[index].NumberOfTimesPregnant == 0 {
-			resultSet[index].NumberOfTimesPregnant = columnMean[0]
+		if dataset[index].NorthVolume == 0 {
+			resultSet[index].NorthVolume = columnMean[0]
 		} else {
-			resultSet[index].NumberOfTimesPregnant = dataset[index].NumberOfTimesPregnant
+			resultSet[index].NorthVolume = dataset[index].NorthVolume
 		}
 	
-		if dataset[index].PlasmaGlucoseConcentration == 0 {
-			resultSet[index].PlasmaGlucoseConcentration = columnMean[1]
+		if dataset[index].NorthAverageSpeed == 0 {
+			resultSet[index].NorthAverageSpeed = columnMean[1]
 		} else {
-			resultSet[index].PlasmaGlucoseConcentration = dataset[index].PlasmaGlucoseConcentration
+			resultSet[index].NorthAverageSpeed = dataset[index].NorthAverageSpeed
 		}
 	
-		if dataset[index].DiastolicBloodPressure == 0 {
-			resultSet[index].DiastolicBloodPressure = columnMean[2]
+		if dataset[index].SouthVolume == 0 {
+			resultSet[index].SouthVolume = columnMean[2]
 		} else {
-			resultSet[index].DiastolicBloodPressure = dataset[index].DiastolicBloodPressure
+			resultSet[index].SouthVolume = dataset[index].SouthVolume
 		}
 
-		if dataset[index].TricepsSkinfoldThickness == 0 {
-			resultSet[index].TricepsSkinfoldThickness = columnMean[3]
+		if dataset[index].SouthAverageSpeed == 0 {
+			resultSet[index].SouthAverageSpeed = columnMean[3]
 		} else {
-			resultSet[index].TricepsSkinfoldThickness = dataset[index].TricepsSkinfoldThickness
+			resultSet[index].SouthAverageSpeed = dataset[index].SouthAverageSpeed
 		}
 
-		if dataset[index].SeriumInsulin == 0 {
-			resultSet[index].SeriumInsulin = columnMean[4]
-		} else {
-			resultSet[index].SeriumInsulin = dataset[index].SeriumInsulin
-		}
-
-		if dataset[index].BodyMassIndex == 0 {
-			resultSet[index].BodyMassIndex = columnMean[5]
-		} else {
-			resultSet[index].BodyMassIndex = float64(dataset[index].BodyMassIndex)
-		}
-
-		if dataset[index].DiabetesPedigreeFunction == 0 {
-			resultSet[index].DiabetesPedigreeFunction = columnMean[6]
-		} else {
-			resultSet[index].DiabetesPedigreeFunction = float64(dataset[index].DiabetesPedigreeFunction)
-		}
-	
-		if dataset[index].Age == 0 {
-			resultSet[index].Age = columnMean[7]
-		} else {
-			resultSet[index].Age = dataset[index].Age
-		}
+		
 
 		// TestedPositive field could actually be zero
-		resultSet[index].TestedPositive = dataset[index].TestedPositive
+		resultSet[index].Outcome = dataset[index].Outcome
 
 	}
 
