@@ -2,7 +2,7 @@ package algorithms
 
 import (
 	"fmt"
-	"../diabetesdata"
+	"../trafficdata"
 	"../datasets"
 	"../support"
 	"../logging"

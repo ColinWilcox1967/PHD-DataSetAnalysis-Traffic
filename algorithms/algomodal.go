@@ -4,7 +4,7 @@ import (
 	"sort"
 	"fmt"
 
-	"../diabetesdata"
+	"../trafficdata"
 	"../support"
 	"../logging"
 )

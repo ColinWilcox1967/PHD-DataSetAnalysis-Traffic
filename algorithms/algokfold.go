@@ -7,7 +7,7 @@ import (
 	"time"
 	"fmt"
 	"sort"
-	"../diabetesdata"
+	"../trafficdata"
   	"../support"
 	"../logging"
 	"../classifier"

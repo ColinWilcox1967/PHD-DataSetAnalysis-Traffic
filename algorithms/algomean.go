@@ -1,7 +1,7 @@
 package algorithms
 
 import (
-	"../diabetesdata"
+	"../trafficdata"
 	"../support"
 	"fmt"
 	"../logging"

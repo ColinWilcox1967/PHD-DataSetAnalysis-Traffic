@@ -1,7 +1,7 @@
 package algorithms
 
 import (
-	"../diabetesdata"
+	"../trafficdata"
 )
 
 // algo=4

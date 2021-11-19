@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"math"
 	"os"
-	"../diabetesdata"
+	"../trafficdata"
 )
 
 func Percentage (numerator, denominator float64) float64 {

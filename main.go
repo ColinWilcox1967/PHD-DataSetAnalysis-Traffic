@@ -13,7 +13,7 @@ import (
 	"time"
 	"./support"
 	"./metrics"
-	"./diabetesdata"
+	"./trafficdata"
 	"./datasets"
 	"./logging"
 	"./algorithms"
@@ -26,7 +26,7 @@ const (
 	default_split_percentage = 0.1		// 10% of records go in test set and 90% in training set
 	pima_diabetes_version = "0.2"
 	default_apply_kfold = false
-	diabetes_data_file = "pima-indians-diabetes.txt"
+	diabetes_data_file = "London Rd 2015-2020.txt"
 	default_logfile = "./log.txt"
 )
 

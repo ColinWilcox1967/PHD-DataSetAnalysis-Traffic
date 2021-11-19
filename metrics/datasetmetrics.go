@@ -4,7 +4,7 @@ import(
 	"math"
 	"fmt"
 	"../support"
-	"../diabetesdata"
+	"../trafficdata"
 	"../logging"
 )
 

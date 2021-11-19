@@ -1,6 +1,6 @@
 package datasets
 
-import "../diabetesdata"
+import "../trafficdata"
 
 var (
 	PimaTrainingData []diabetesdata.PimaDiabetesRecord   // Training dataset

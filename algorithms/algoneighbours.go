@@ -2,7 +2,7 @@ package algorithms
 
 import (
 	"../metrics"
-	"../diabetesdata"
+	"../trafficdata"
 	"../datasets"
 
 	"os"
