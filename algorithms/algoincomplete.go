@@ -8,9 +8,9 @@ import (
 	"fmt"
 )
 // Algo=1
-func removeIncompleteRecords (dataset []diabetesdata.PimaDiabetesRecord) ([]diabetesdata.PimaDiabetesRecord, error)  {
+func removeIncompleteRecords (dataset []trafficdata.PimaDiabetesRecord) ([]trafficdata.PimaDiabetesRecord, error)  {
 
-	var resultSet []diabetesdata.PimaDiabetesRecord
+	var resultSet []trafficdata.PimaDiabetesRecord
 
 	var recordsRemoved int
 

@@ -38,7 +38,7 @@ func resetTestCounters () {
 	falseNegativeCount = 0
 }
 
-func splitDataSetIntoEvenFolds (dataset []diabetesdata.PimaDiabetesRecord, folds int) ([][]int, error) {
+func splitDataSetIntoEvenFolds (dataset []trafficdata.PimaDiabetesRecord, folds int) ([][]int, error) {
 	// fold must be positive integer
 	if folds == 0 {
 		return [][]int{}, errors.New ("Invalid number of folds specified")
@@ -67,7 +67,7 @@ func splitDataSetIntoEvenFolds (dataset []diabetesdata.PimaDiabetesRecord, folds
 	return kfoldFolds, nil
 }
 
-func calculateKFoldMetrics (dataset []diabetesdata.PimaDiabetesRecord, foldIndex int) {
+func calculateKFoldMetrics (dataset []trafficdata.PimaDiabetesRecord, foldIndex int) {
 
 	if len(kfoldSimilarityTable) == 0 { // sanity checking
 		return
@@ -128,7 +128,7 @@ func calculateKFoldMetrics (dataset []diabetesdata.PimaDiabetesRecord, foldIndex
 	Metrics[foldIndex].FalseNegativeCount = falseNegativeCount
 }
 
-func DoKFoldSplit (dataset []diabetesdata.PimaDiabetesRecord, numberOfFolds int) ([]diabetesdata.PimaDiabetesRecord, error) {
+func DoKFoldSplit (dataset []trafficdata.PimaDiabetesRecord, numberOfFolds int) ([]trafficdata.PimaDiabetesRecord, error) {
 
 	str := fmt.Sprintf ("Number of folds : %d\n", numberOfFolds)
 	logging.DoWriteString (str, true, true)

@@ -42,7 +42,7 @@ func GetAlgorithmDescription (algoIndex int) string {
 	return ""
 }
 
-func DoProcessAlgorithm (dataset []diabetesdata.PimaDiabetesRecord, algorithm int) ([]diabetesdata.PimaDiabetesRecord, error) {
+func DoProcessAlgorithm (dataset []trafficdata.PimaDiabetesRecord, algorithm int) ([]trafficdata.PimaDiabetesRecord, error) {
 
 	// index specified out of range
 	if algorithm < 0 || algorithm > len(algorithmDescriptions)-1 {
@@ -66,7 +66,7 @@ func DoProcessAlgorithm (dataset []diabetesdata.PimaDiabetesRecord, algorithm in
 	return dataset, err
 }
 
-func anonymiseDiabetesRecord (data diabetesdata.PimaDiabetesRecord ) []float64 {
+func anonymiseDiabetesRecord (data trafficdata.PimaDiabetesRecord ) []float64 {
 	anonymous := make([]float64, support.SizeOfPimaDiabetesRecord()-1)
 
 	anonymous[0] = float64(data.NumberOfTimesPregnant)
@@ -178,7 +178,7 @@ func showSessionMetrics (sessionhandle *os.File) {
 	}
 }
 
-func DoShowAlgorithmTestSummary (sessionhandle *os.File, testdata []diabetesdata.PimaDiabetesRecord ) {
+func DoShowAlgorithmTestSummary (sessionhandle *os.File, testdata []trafficdata.PimaDiabetesRecord ) {
 	
 	var truePositiveCount int	// Number of true positives (TP)
 	var trueNegativeCount int	// Number of true negatives (TN)

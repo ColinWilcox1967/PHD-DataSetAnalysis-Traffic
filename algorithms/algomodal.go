@@ -26,7 +26,7 @@ func valueExistsForFeature (list []valueCount, value float64) (bool, int) {
 }
 
 //algo=3
-func replaceMissingValuesWithModal (dataset []diabetesdata.PimaDiabetesRecord) ([]diabetesdata.PimaDiabetesRecord, error) {
+func replaceMissingValuesWithModal (dataset []trafficdata.PimaDiabetesRecord) ([]trafficdata.PimaDiabetesRecord, error) {
 	numberOfFields := support.SizeOfPimaDiabetesRecord () - 1
 	numberOfRecords := len(dataset)
 

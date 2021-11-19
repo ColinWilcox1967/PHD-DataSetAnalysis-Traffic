@@ -8,7 +8,7 @@ import (
 )
 
 // Algo=2
-func replaceMissingValuesWithMean (dataset []diabetesdata.PimaDiabetesRecord) ([]diabetesdata.PimaDiabetesRecord, error) {
+func replaceMissingValuesWithMean (dataset []trafficdata.PimaDiabetesRecord) ([]trafficdata.PimaDiabetesRecord, error) {
 
 	numberOfFields := support.SizeOfPimaDiabetesRecord () - 1
 	numberOfRecords := len(dataset)

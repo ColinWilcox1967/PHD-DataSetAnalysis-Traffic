@@ -8,39 +8,28 @@ import(
 	"../logging"
 )
 
-func HasMissingElements (record diabetesdata.PimaDiabetesRecord) bool {
+func HasMissingElements (record trafficdata.PimaDiabetesRecord) bool {
 	return countMissingElements (record) > 0
 }
 
-func countMissingElements (record diabetesdata.PimaDiabetesRecord) int {
+func countMissingElements (record trafficdata.PimaDiabetesRecord) int {
 
 	missingFieldCount := 0
 
 	// for each zero value increment count
-	if record.NumberOfTimesPregnant == 0{
+	if record.NorthVolume == 0{
 		missingFieldCount++
 	}
-	if record.PlasmaGlucoseConcentration == 0 {
+	if record.NorthAverageSpeed == 0 {
 		missingFieldCount++
 	}
-	if record.DiastolicBloodPressure == 0 {
+	if record.SouthVolume == 0 {
 		missingFieldCount++
 	}
-	if record.TricepsSkinfoldThickness == 0 {
+	if record.SouthAverageSpeed == 0 {
 		missingFieldCount++
 	}
-	if record.SeriumInsulin == 0 {
-		missingFieldCount++
-	}
-	if record.BodyMassIndex == 0 {
-		missingFieldCount++
-	}
-	if record.DiabetesPedigreeFunction == 0 {
-		missingFieldCount++
-	}
-	if record.Age == 0 {
-		missingFieldCount++
-	}
+	
 	
 	return missingFieldCount
 }
@@ -55,7 +44,7 @@ func ShowDataSetStatistics (displayName string, metrics DataSetMetrics) {
 	logging.DoWriteString (str, true,true)
 }
 
-func SourceDataSetMetricsByFeature (dataset []diabetesdata.PimaDiabetesRecord) []DataSetStatisticsRecord {
+func SourceDataSetMetricsByFeature (dataset []trafficdata.PimaDiabetesRecord) []DataSetStatisticsRecord {
 	recordCount := len(dataset)
 	numberOfFields := 7 // hardcode for now
 
@@ -89,22 +78,15 @@ func SourceDataSetMetricsByFeature (dataset []diabetesdata.PimaDiabetesRecord) [
 			totalFeatureCount[feature] += value // add cell value to appropriate feature count
 
 			switch (feature) {
-				case 0: // Number of times pregnant
-					value = float64(dataset[index].NumberOfTimesPregnant)
-				case 1: //Plasma Glucose Concentration
-					value = float64(dataset[index].PlasmaGlucoseConcentration)
-				case 2: // Disstolic blood pressue
-					value = float64(dataset[index].DiastolicBloodPressure)
-				case 3: // Triceps skinfold thickness
-					value = float64(dataset[index].TricepsSkinfoldThickness)
-				case 4: // 2-Hour Serum Insulin
-					value = float64(dataset[index].SeriumInsulin)	
-				case 5: // Body Mass Index
-					value = float64(dataset[index].BodyMassIndex)
-				case 6: // Diabetes Pedigree Function
-					value = float64(dataset[index].DiabetesPedigreeFunction)
-				case 7: // Age
-					value = float64(dataset[index].Age)
+				case 0: // Volume north
+					value = float64(dataset[index].NorthVolume)
+				case 1: //Average speed north
+					value = float64(dataset[index].NorthAverageSpeed)
+				case 2: // Volume south
+					value = float64(dataset[index].SouthVolume)
+				case 3: //Average speed south
+					value = float64(dataset[index].SouthAverageSpeed)
+			
 			}
 
 			if index == 0 {
@@ -134,22 +116,15 @@ func SourceDataSetMetricsByFeature (dataset []diabetesdata.PimaDiabetesRecord) [
 		var value float64
 		for index := 0; index < recordCount; index++ {
 			switch (feature) {
-				case 0: // Number of times pregnant
-					value = float64(dataset[index].NumberOfTimesPregnant)
-				case 1: //Plasma Glucose Concentration
-					value = float64(dataset[index].PlasmaGlucoseConcentration)
-				case 2: // Disstolic blood pressue
-					value = float64(dataset[index].DiastolicBloodPressure)
-				case 3: // Triceps skinfold thickness
-					value = float64(dataset[index].TricepsSkinfoldThickness)
-				case 4: // 2-Hour Serum Insulin
-					value = float64(dataset[index].SeriumInsulin)	
-				case 5: // Body Mass Index
-					value = float64(dataset[index].BodyMassIndex)
-				case 6: // Diabetes Pedigree Function
-					value = float64(dataset[index].DiabetesPedigreeFunction)
-				case 7: // Age
-					value = float64(dataset[index].Age)
+				case 0: // North volume
+					value = float64(dataset[index].NorthVolume)
+				case 1: //average speed north
+					value = float64(dataset[index].NorthAverageSpeed)
+				case 2: // south volume
+					value = float64(dataset[index].SouthVolume)
+				case 3: // Taverage speed south
+					value = float64(dataset[index].SouthAverageSpeed)
+				
 			}
 
 			totalDeviation += (value-mean)*(value-mean)
@@ -161,7 +136,7 @@ func SourceDataSetMetricsByFeature (dataset []diabetesdata.PimaDiabetesRecord) [
 	return statistics
 }
 
-func GetDataSetMetrics (dataset []diabetesdata.PimaDiabetesRecord) DataSetMetrics {
+func GetDataSetMetrics (dataset []trafficdata.PimaDiabetesRecord) DataSetMetrics {
 
 	var metrics DataSetMetrics
 	

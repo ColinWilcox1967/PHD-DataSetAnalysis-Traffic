@@ -3,6 +3,6 @@ package datasets
 import "../trafficdata"
 
 var (
-	PimaTrainingData []diabetesdata.PimaDiabetesRecord   // Training dataset
-	PimaTestData []diabetesdata.PimaDiabetesRecord 		// Test data subset
+	PimaTrainingData []trafficdata.PimaDiabetesRecord   // Training dataset
+	PimaTestData []trafficdata.PimaDiabetesRecord 		// Test data subset
 )

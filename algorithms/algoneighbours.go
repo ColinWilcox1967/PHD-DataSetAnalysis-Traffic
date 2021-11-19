@@ -12,7 +12,7 @@ import (
 // algo=5
 
 // using plain nearest neighbour removing incomplete data from the set of possible donors
-func replaceNearestNeighbours (dataset []diabetesdata.PimaDiabetesRecord) ([]diabetesdata.PimaDiabetesRecord, error) {
+func replaceNearestNeighbours (dataset []trafficdata.PimaDiabetesRecord) ([]trafficdata.PimaDiabetesRecord, error) {
 
 	numberOfRecords := len(dataset)
 	

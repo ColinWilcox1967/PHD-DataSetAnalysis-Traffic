@@ -12,7 +12,7 @@ func Percentage (numerator, denominator float64) float64 {
 }
 
 func SizeOfPimaDiabetesRecord () int {
-	return reflect.TypeOf(diabetesdata.PimaDiabetesRecord {}).NumField() // get number of fields in a struct
+	return reflect.TypeOf(trafficdata.PimaDiabetesRecord {}).NumField() // get number of fields in a struct
 }
 
 func FileExists (filename string) bool {

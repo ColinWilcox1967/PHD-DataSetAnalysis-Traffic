@@ -14,7 +14,7 @@ type SimilarityMeasure struct {
 
 var SimilarityTable []SimilarityMeasure // stores the indesx and measure of the closest records
 
-func BuildSimilarityTable (testdata diabetesdata.PimaDiabetesRecord) {
+func BuildSimilarityTable (testdata trafficdata.PimaDiabetesRecord) {
 	elementsToCompare := support.SizeOfPimaDiabetesRecord()-1 // excluse the actual result TestedPositive
 
 	// measure similarity against each record in training set

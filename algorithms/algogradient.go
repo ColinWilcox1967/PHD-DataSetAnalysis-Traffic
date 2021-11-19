@@ -5,11 +5,11 @@ import (
 )
 
 // algo=4
-func replaceGradientValue (dataset []diabetesdata.PimaDiabetesRecord) ([]diabetesdata.PimaDiabetesRecord, error) {
+func replaceGradientValue (dataset []trafficdata.PimaDiabetesRecord) ([]trafficdata.PimaDiabetesRecord, error) {
 
 	numberOfRecords := len(dataset)
 
-	var resultSet = make([]diabetesdata.PimaDiabetesRecord, numberOfRecords)
+	var resultSet = make([]trafficdata.PimaDiabetesRecord, numberOfRecords)
 
 	return resultSet, nil
 }
