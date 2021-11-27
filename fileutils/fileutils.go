@@ -3,10 +3,21 @@ package fileutils
 import (
 	"fmt"
 	"os"
+	"time"
+	"strings"
 
 	"../trafficdata"
 
 )
+
+func CdontreateDumpFileName (algotype string) string {
+
+	str :="algo_"+algotype+"_"
+	str += time.Now().Format("2006-01-02-150405")
+	str += ".csv"
+	return strings.ToLower(str)
+}
+
 func DumpTrafficData (filename string, data []trafficdata.PimaDiabetesRecord) int {
 
 	f, err := os.Create(filename)
