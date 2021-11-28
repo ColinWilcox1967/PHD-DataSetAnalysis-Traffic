@@ -10,7 +10,7 @@ import (
 
 )
 
-func CdontreateDumpFileName (algotype string) string {
+func CreateDumpFileName (algotype string) string {
 
 	str :="algo_"+algotype+"_"
 	str += time.Now().Format("2006-01-02-150405")
@@ -30,7 +30,7 @@ func DumpTrafficData (filename string, data []trafficdata.PimaDiabetesRecord) in
 	count := 0
 	for i := 0; i< len(data); i++ {
 		rec := data[i]
-		str := fmt.Sprintf ("%s,%f,%f,%f,%f\n", rec.Timestamp, rec.NorthVolume, rec.NorthAverageSpeed, rec.SouthVolume, rec.SouthAverageSpeed)
+		str := fmt.Sprintf ("%s,%.3f,%.3f,%.3f,%.3f\n", rec.Timestamp, rec.NorthVolume, rec.NorthAverageSpeed, rec.SouthVolume, rec.SouthAverageSpeed)
 
 		_, err := f.WriteString(str)
 		if err == nil {
@@ -38,7 +38,7 @@ func DumpTrafficData (filename string, data []trafficdata.PimaDiabetesRecord) in
 		}
 	}
 
-	f.Flush ()
+	
 
 	return count
 }

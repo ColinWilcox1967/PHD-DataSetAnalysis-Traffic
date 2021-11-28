@@ -8,6 +8,7 @@ import (
 	"../logging"
 	"../classifier"
 	"../metrics"
+	fileutils "../fileutils"
 
 	"errors"
 	"os"
@@ -52,15 +53,25 @@ func DoProcessAlgorithm (dataset []trafficdata.PimaDiabetesRecord, algorithm int
 	data := make([]trafficdata.PimaDiabetesRecord, len(dataset))
 	var err error = nil
 
+	var algoName string
 	switch (algorithm) {
 		case 0: copy(data[:], dataset)
 		case 1: dataset, err = removeIncompleteRecords (dataset)
+			algoName = "RemoveIncomplete"
 		case 2: dataset, err = replaceMissingValuesWithMean (dataset)
+			algoName = "ReplaceWithMean"
 		case 3: dataset, err = replaceMissingValuesWithModal (dataset)
-		
+			algoName = "ReplaceWithModal"
 		default:
 			copy(data[:], dataset)
 
+	}
+
+	if err == nil && len(algoName)>0 {
+		fmt.Printf ("Dumping ... %s:", algoName)
+		count := fileutils.DumpTrafficData (fileutils.CreateDumpFileName(algoName), dataset)
+		fmt.Printf ("%d records written.\n", count)
+		os.Exit(0)
 	}
 
 	return dataset, err

@@ -113,6 +113,9 @@ func replaceMissingValuesWithModal (dataset []trafficdata.PimaDiabetesRecord) ([
 			resultSet[index].SouthAverageSpeed = support.RoundFloat64(dataset[index].SouthAverageSpeed, 2)
 		}
 
+		resultSet[index].Timestamp = dataset[index].Timestamp
+
+
 		
 		// TestedPositive field may actually be zero
 		resultSet[index].Outcome = dataset[index].Outcome

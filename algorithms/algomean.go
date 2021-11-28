@@ -68,6 +68,8 @@ func replaceMissingValuesWithMean (dataset []trafficdata.PimaDiabetesRecord) ([]
 			resultSet[index].SouthAverageSpeed = dataset[index].SouthAverageSpeed
 		}
 
+		resultSet[index].Timestamp = dataset[index].Timestamp
+
 		
 
 		// TestedPositive field could actually be zero
